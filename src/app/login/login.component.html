@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="loginFunc()">
+  <input formControlName="username" />
+  <input formControlName="password" />
+  <button type="submit">asd</button>
+</form>
+<ul>
+  <li *ngFor="let item of onlineUser">
+    {{ item.username }}
+  </li>
+</ul>
+<button (click)="getUser()">getUser</button>
