@@ -1,15 +1,19 @@
-<form [formGroup]="loginForm" (ngSubmit)="loginFunc()">
-  <input formControlName="username" />
-  <input formControlName="password" />
-  <button type="submit">asd</button>
-</form>
-<ul>
-  <li *ngFor="let item of onlineUser">
-    {{ item.username }}
-  </li>
-</ul>
-<button (click)="getUser()">new socket</button>
-<button (click)="discSocket()">disc socket</button>
-<button (click)="getSocket()">get socket</button>
-<button (click)="addRoom()">add room</button>
-<button (click)="data()">show rooms</button>
+<section class="formSection">
+  <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="form-group">
+    <label for="username">Username:</label>
+    <input
+      class="form-control"
+      formControlName="username"
+      id="username"
+      placeholder="Enter username"
+    />
+    <label for="password">Password:</label>
+    <input
+      class="form-control"
+      formControlName="password"
+      id="password"
+      placeholder="Enter password"
+    />
+    <button class="btn btn-primary" type="submit">SIGN IN</button>
+  </form>
+</section>
