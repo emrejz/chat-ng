@@ -1,4 +1,4 @@
-import { Room } from "./../models/room";
+import { IRoom } from "./../models/room";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as io from "socket.io-client";
@@ -30,7 +30,7 @@ export class SocketService {
   disconnectScoke() {
     this.socket.disconnect();
   }
-  roomList(): Observable<Room[]> {
+  roomList(): Observable<IRoom[]> {
     return new Observable(observer => {
       this.socket.on("roomList", data => {
         observer.next(data);
@@ -38,7 +38,7 @@ export class SocketService {
       return () => this.socket.disconnect();
     });
   }
-  newRoom(): Observable<Room> {
+  newRoom(): Observable<IRoom> {
     return new Observable(observer => {
       this.socket.on("newRoom", data => {
         observer.next(data);

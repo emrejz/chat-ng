@@ -1,19 +1,126 @@
 <section class="formSection">
-  <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="form-group">
+  <div class="buttons">
+    SIGN
+    <a [ngClass]="isSignIn ? 'selected' : ''" (click)="isSignInFunc(true)"
+      >IN</a
+    >
+    /
+    <a [ngClass]="!isSignIn ? 'selected' : ''" (click)="isSignInFunc(false)"
+      >UP</a
+    >
+  </div>
+  <form
+    *ngIf="isSignIn"
+    [formGroup]="signInForm"
+    (ngSubmit)="signIn()"
+    class="form-group"
+    method="POST"
+  >
     <label for="username">Username:</label>
     <input
       class="form-control"
       formControlName="username"
       id="username"
       placeholder="Enter username"
+      [ngClass]="
+        !signInForm.get('username').touched
+          ? ''
+          : signInForm.get('username').hasError('required') ||
+            signInForm.get('username').hasError('minlength') ||
+            signInForm.get('username').hasError('maxlength')
+          ? 'is-invalid'
+          : 'is-valid'
+      "
     />
     <label for="password">Password:</label>
     <input
       class="form-control"
       formControlName="password"
       id="password"
+      type="password"
       placeholder="Enter password"
+      [ngClass]="
+        !signInForm.get('password').touched
+          ? ''
+          : signInForm.get('password').hasError('required') ||
+            signInForm.get('password').hasError('minlength') ||
+            signInForm.get('password').hasError('maxlength')
+          ? 'is-invalid'
+          : 'is-valid'
+      "
     />
-    <button class="btn btn-primary" type="submit">SIGN IN</button>
+    <button
+      [disabled]="!signInForm.valid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      SIGN IN
+    </button>
+  </form>
+  <form
+    *ngIf="!isSignIn"
+    [formGroup]="signUpForm"
+    (ngSubmit)="signUp()"
+    class="form-group"
+    method="POST"
+  >
+    <label for="username">Username:</label>
+    <input
+      class="form-control"
+      formControlName="username"
+      id="username"
+      placeholder="Enter username"
+      [ngClass]="
+        !signUpForm.get('username').touched
+          ? ''
+          : signUpForm.get('username').hasError('required') ||
+            signUpForm.get('username').hasError('minlength') ||
+            signUpForm.get('username').hasError('maxlength')
+          ? 'is-invalid'
+          : 'is-valid'
+      "
+    />
+    <label for="password1">Password:</label>
+    <input
+      class="form-control"
+      formControlName="password1"
+      id="password1"
+      type="password"
+      placeholder="Enter password"
+      [ngClass]="
+        !signUpForm.get('password1').touched
+          ? ''
+          : signUpForm.get('password1').hasError('required') ||
+            signUpForm.get('password1').hasError('minlength') ||
+            signUpForm.get('password1').hasError('maxlength')
+          ? 'is-invalid'
+          : 'is-valid'
+      "
+    />
+    <label for="password2">Password:</label>
+    <input
+      class="form-control"
+      formControlName="password2"
+      id="password2"
+      type="password"
+      placeholder="Re-enter password"
+      [ngClass]="
+        !signUpForm.get('password2').touched
+          ? ''
+          : signUpForm.get('password2').hasError('required') ||
+            signUpForm.get('password2').hasError('minlength') ||
+            signUpForm.get('password2').hasError('maxlength') ||
+            signUpForm.get('password2').hasError('mismatch')
+          ? 'is-invalid'
+          : 'is-valid'
+      "
+    />
+    <button
+      [disabled]="!signUpForm.valid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      SIGN UP
+    </button>
   </form>
 </section>
