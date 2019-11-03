@@ -50,11 +50,11 @@
       "
     />
     <button
-      [disabled]="!signInForm.valid"
+      [disabled]="!signInForm.valid || loading"
       class="btn btn-primary"
       type="submit"
     >
-      SIGN IN
+      {{ loading ? "WAIT" : "SIGN IN" }}
     </button>
   </form>
   <form
@@ -116,11 +116,12 @@
       "
     />
     <button
-      [disabled]="!signUpForm.valid"
+      [disabled]="!signUpForm.valid || loading"
       class="btn btn-primary"
       type="submit"
     >
-      SIGN UP
+      {{ loading ? "WAIT" : "SIGN UP" }}
     </button>
   </form>
+  <h1 style="color:red" *ngIf="error">{{ error.message }}</h1>
 </section>

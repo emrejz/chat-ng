@@ -10,9 +10,11 @@ export class SignService {
   constructor(private router: Router, private http: HttpClient) {}
   user: IUser;
   error: Error;
+  loading: boolean = false;
   signInAction(user: IUser) {
     this.user = null;
     this.error = null;
+    this.loading = true;
     this.http
       .post<IUser>("http://localhost:3001/signin", user, {
         withCredentials: true
@@ -27,12 +29,16 @@ export class SignService {
             this.error = data["error"];
           }
         },
-        err => (this.error = err)
+        err => (this.error = err),
+        () => {
+          this.loading = false;
+        }
       );
   }
   signUpAction(user: IUser) {
     this.user = null;
     this.error = null;
+    this.loading = true;
     this.http
       .post<IUser>("http://localhost:3001/signup", user, {
         withCredentials: true
@@ -47,7 +53,10 @@ export class SignService {
             this.error = data["error"];
           }
         },
-        err => (this.error = err)
+        err => (this.error = err),
+        () => {
+          this.loading = false;
+        }
       );
   }
 }

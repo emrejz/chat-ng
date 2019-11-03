@@ -31,7 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl("chat");
     }
   }
-
+  get loading() {
+    return this.signService.loading;
+  }
+  get error() {
+    return this.signService.error;
+  }
   signIn() {
     if (this.signInForm.valid) {
       this.signService.signInAction(this.signInForm.value);
@@ -44,6 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   isSignInFunc(val: boolean) {
     this.isSignIn = val;
+    this.signService.error = null;
   }
   createSignInForm() {
     this.signInForm = this.formBuilder.group({
