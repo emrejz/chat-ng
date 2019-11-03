@@ -1,0 +1,10 @@
+<button (click)="showD()">asd</button>
+<button (click)="addRoom()">room</button>
+<input [(ngModel)]="message" />
+<button (click)="newMsg()">send</button>
+<div>{{ message }}</div>
+<ul>
+  <li (click)="getRoomMsgs(room.name)" *ngFor="let room of roomList">
+    {{ room.name }}
+  </li>
+</ul>
