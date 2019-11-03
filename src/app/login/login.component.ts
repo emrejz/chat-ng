@@ -1,7 +1,8 @@
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { SignService } from "./../services/sign.service";
 import { SocketService } from "./../services/socket.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -9,10 +10,15 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this.socketService.destroy();
+  }
   constructor(
     private formBuilder: FormBuilder,
-    private signService: SignService
+    private signService: SignService,
+    private socketService: SocketService,
+    private router: Router
   ) {}
   isSignIn: boolean = false;
   signInForm: FormGroup;
@@ -20,7 +26,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.createSignInForm();
     this.createSignUpForm();
+    if (!this.socketService.user) this.socketService.socketInitFunc();
+    else {
+      this.router.navigateByUrl("chat");
+    }
   }
+
   signIn() {
     if (this.signInForm.valid) {
       this.signService.signInAction(this.signInForm.value);
@@ -57,7 +68,7 @@ export class LoginComponent implements OnInit {
             Validators.maxLength(10)
           ]
         ],
-        password1: [
+        password: [
           "",
           [
             Validators.required,
@@ -65,7 +76,7 @@ export class LoginComponent implements OnInit {
             Validators.maxLength(10)
           ]
         ],
-        password2: [
+        passwordC: [
           "",
           [
             Validators.required,
@@ -80,7 +91,7 @@ export class LoginComponent implements OnInit {
     );
   }
   passwordMatchValidator(g: FormGroup) {
-    g.get("password1").value !== g.get("password2").value &&
-      g.get("password2").setErrors({ mismatch: true });
+    g.get("password").value !== g.get("passwordC").value &&
+      g.get("passwordC").setErrors({ mismatch: true });
   }
 }

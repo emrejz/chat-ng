@@ -80,37 +80,37 @@
           : 'is-valid'
       "
     />
-    <label for="password1">Password:</label>
+    <label for="password">Password:</label>
     <input
       class="form-control"
-      formControlName="password1"
-      id="password1"
+      formControlName="password"
+      id="password"
       type="password"
       placeholder="Enter password"
       [ngClass]="
-        !signUpForm.get('password1').touched
+        !signUpForm.get('password').touched
           ? ''
-          : signUpForm.get('password1').hasError('required') ||
-            signUpForm.get('password1').hasError('minlength') ||
-            signUpForm.get('password1').hasError('maxlength')
+          : signUpForm.get('password').hasError('required') ||
+            signUpForm.get('password').hasError('minlength') ||
+            signUpForm.get('password').hasError('maxlength')
           ? 'is-invalid'
           : 'is-valid'
       "
     />
-    <label for="password2">Password:</label>
+    <label for="passwordC">Password:</label>
     <input
       class="form-control"
-      formControlName="password2"
-      id="password2"
+      formControlName="passwordC"
+      id="passwordC"
       type="password"
       placeholder="Re-enter password"
       [ngClass]="
-        !signUpForm.get('password2').touched
+        !signUpForm.get('passwordC').touched
           ? ''
-          : signUpForm.get('password2').hasError('required') ||
-            signUpForm.get('password2').hasError('minlength') ||
-            signUpForm.get('password2').hasError('maxlength') ||
-            signUpForm.get('password2').hasError('mismatch')
+          : signUpForm.get('passwordC').hasError('required') ||
+            signUpForm.get('passwordC').hasError('minlength') ||
+            signUpForm.get('passwordC').hasError('maxlength') ||
+            signUpForm.get('passwordC').hasError('mismatch')
           ? 'is-invalid'
           : 'is-valid'
       "

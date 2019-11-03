@@ -21,6 +21,7 @@ export class SignService {
         data => {
           if (data["user"]) {
             this.user = data["user"];
+            this.router.navigateByUrl("chat");
           }
           if (data["error"]) {
             this.error = data["error"];
@@ -29,7 +30,6 @@ export class SignService {
         err => (this.error = err)
       );
   }
-
   signUpAction(user: IUser) {
     this.user = null;
     this.error = null;
@@ -41,6 +41,7 @@ export class SignService {
         data => {
           if (data["user"]) {
             this.user = data["user"];
+            this.router.navigateByUrl("chat");
           }
           if (data["error"]) {
             this.error = data["error"];
