@@ -8,9 +8,6 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 })
 export class ChatComponent implements OnInit, OnDestroy {
   message: string = "";
-  roomName: string = "deneme1";
-  selectedRoom: boolean = true;
-  addRoomName: string = "";
   colors: Array<string> = [
     "azure",
     "yellow",
@@ -26,7 +23,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (!this.socketService.user) this.socketService.socketInitFunc();
-    this.socketService.getRoomMessages(this.roomName);
   }
   ngOnDestroy() {
     this.socketService.destroy();
@@ -44,26 +40,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     return this.colors[this.userList.indexOf(username)];
   }
-  selectedRoomFunc(val: boolean) {
-    this.selectedRoom = val;
-  }
-  addRoomNameFunc() {
-    this.addRoomName = this.addRoomName.trim();
-    if (this.addRoomName.length > 0) {
-      this.socketService.addRoom(this.addRoomName);
-    }
-  }
-  get roomList() {
-    return this.socketService.roomList;
-  }
-  get onlineUsers() {
-    return this.socketService.onlineUserList;
-  }
   get roomMessages() {
-    return this.socketService.messageList[this.roomName];
+    return this.socketService.getSelectedRoomMessages();
   }
-  getRoomMsgs(name: string) {
-    this.roomName = name;
-    this.socketService.getRoomMessages(name);
+  get roomName() {
+    return this.socketService.selectedRoom.name;
   }
 }

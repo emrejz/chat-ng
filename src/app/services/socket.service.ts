@@ -16,7 +16,7 @@ export class SocketService {
   roomList: IRoom[];
   onlineUserList: IUser[];
   messageList: object = {};
-  selectedRoom: IRoom = { name: "", when: null };
+  selectedRoom: IRoom = { name: "deneme1", when: null };
   loading: boolean = true;
   destroy() {
     this.socket.disconnect();
@@ -56,11 +56,15 @@ export class SocketService {
       } = data;
       this.messageList[roomName].push({ username, message, when, picture });
     });
+    this.socket.emit("roomMessages", "deneme1");
   }
   getRoomMessages(roomName: string) {
     this.selectedRoom.name = roomName;
     if (!this.messageList.hasOwnProperty(roomName))
       this.socket.emit("roomMessages", roomName);
+  }
+  getSelectedRoomMessages() {
+    return this.messageList[this.selectedRoom.name];
   }
   newMessage(message: string) {
     this.socket.emit("newMessage", {
