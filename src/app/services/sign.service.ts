@@ -1,3 +1,4 @@
+import { environment } from "./../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -7,6 +8,7 @@ import { IUser } from "../models/user";
   providedIn: "root"
 })
 export class SignService {
+  environment;
   constructor(private router: Router, private http: HttpClient) {}
   user: IUser;
   error: Error;
@@ -16,7 +18,7 @@ export class SignService {
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>("http://localhost:3001/signin", user, {
+      .post<IUser>(environment.server_url + "signin", user, {
         withCredentials: true
       })
       .subscribe(
@@ -40,7 +42,7 @@ export class SignService {
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>("http://localhost:3001/signup", user, {
+      .post<IUser>(environment.server_url + "signup", user, {
         withCredentials: true
       })
       .subscribe(

@@ -4,7 +4,7 @@ import { IRoom } from "./../models/room";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as io from "socket.io-client";
-import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +23,7 @@ export class SocketService {
     this.user = undefined;
   }
   socketInitFunc() {
-    this.socket = io("http://localhost:3001/").emit("startEvent");
+    this.socket = io(environment.server_url).emit("startEvent");
     this.user = undefined;
     this.socket.on("userInfo", data => {
       this.loading = false;
