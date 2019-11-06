@@ -1,7 +1,12 @@
 <section class="mainContainer">
   <div class="chatContent">
     <h4 class="chatHeader">room: {{ roomName }}</h4>
-    <div class="chatBody" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div
+      class="chatBody"
+      id="style-13"
+      #scrollMe
+      [scrollTop]="scrollMe.scrollHeight"
+    >
       <div
         *ngFor="let item of roomMessages"
         class="messageBox"
