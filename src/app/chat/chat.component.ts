@@ -7,28 +7,52 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
   styleUrls: ["./chat.component.css"]
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  message: string;
+  message: string = "";
+  roomName: string = "deneme1";
+  event: any;
+  colors: Array<string> = [
+    "azure",
+    "yellow",
+    "aquamarine",
+    "salmon",
+    "antiquewhite",
+    "lawngreen",
+    "darkorange",
+    "hotpink"
+  ];
+  userList: Array<string> = [];
   constructor(private socketService: SocketService) {}
 
   ngOnInit() {
     if (!this.socketService.user) this.socketService.socketInitFunc();
+    this.socketService.getRoomMessages(this.roomName);
   }
   ngOnDestroy() {
     this.socketService.destroy();
   }
-  showD() {
-    console.log(this.socketService.roomList);
-    console.log(this.socketService.user);
-    console.log(this.socketService.messageList);
+  sendMsg() {
+    if (this.message.trim().length > 0) {
+      this.socketService.newMessage(this.message);
+    }
+    this.message = "";
   }
-  newMsg() {
-    console.log(this.message);
-    this.socketService.newMessage(this.message);
+  getColor(item) {
+    const { username } = item;
+    if (this.userList.indexOf(username) < 0) {
+      this.userList.push(username);
+    }
+    return this.colors[this.userList.indexOf(username)];
   }
+
   addRoom() {
     this.socketService.addRoom();
   }
+
+  get roomMessages() {
+    return this.socketService.messageList[this.roomName];
+  }
   getRoomMsgs(name: string) {
+    this.roomName = name;
     this.socketService.getRoomMessages(name);
   }
   get roomList() {

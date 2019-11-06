@@ -1,10 +1,32 @@
-<button (click)="showD()">asd</button>
-<button (click)="addRoom()">room</button>
-<input [(ngModel)]="message" />
-<button (click)="newMsg()">send</button>
-<div>{{ message }}</div>
-<ul>
-  <li (click)="getRoomMsgs(room.name)" *ngFor="let room of roomList">
-    {{ room.name }}
-  </li>
-</ul>
+<section class="mainContainer">
+  <div class="chatContent">
+    <h4 class="chatHeader">room: {{ roomName }}</h4>
+    <div class="chatBody" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <div
+        *ngFor="let item of roomMessages"
+        class="messageBox"
+        [ngStyle]="{ 'background-color': getColor(item) }"
+      >
+        <span class="usernameInfo">@{{ item.username }}:</span>
+        <span class="msgInfo"> {{ item.message }}</span>
+        <div class="dateInfo">{{ item.when | date: "short" }}</div>
+      </div>
+    </div>
+    <form class="input-group mb-3 chatFooter" (submit)="sendMsg()">
+      <input
+        placeholder="enter message"
+        type="text"
+        [(ngModel)]="message"
+        [ngModelOptions]="{ standalone: true }"
+        class="form-control messageInp"
+        aria-label="Large"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+      <div class="input-group-append">
+        <button style="width: 100px;" class="btn btn-primary" type="submit">
+          send
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
