@@ -8,9 +8,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./login/login.component";
 import { ChatComponent } from './chat/chat.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ChatComponent],
+  declarations: [AppComponent, LoginComponent, ChatComponent, LoadingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

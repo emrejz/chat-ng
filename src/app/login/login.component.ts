@@ -26,13 +26,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createSignInForm();
     this.createSignUpForm();
-    if (!this.socketService.user) this.socketService.socketInitFunc();
+    if (!this.user) this.socketService.socketInitFunc();
     else {
       this.router.navigateByUrl("chat");
     }
   }
   get loading() {
     return this.signService.loading;
+  }
+  get user() {
+    return this.socketService.user;
   }
   get error() {
     return this.signService.error;

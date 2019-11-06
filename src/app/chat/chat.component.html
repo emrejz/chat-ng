@@ -1,124 +1,127 @@
-<div
-  class="modal fade bd-example-modal-sm"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="mySmallModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">add room</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input
-          [(ngModel)]="addRoomName"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          type="text"
-          placeholder="enter room name"
-        />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          close
-        </button>
-        <button
-          (click)="addRoomNameFunc()"
-          data-dismiss="modal"
-          type="button"
-          class="btn btn-primary"
-        >
-          add
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<section class="mainContainer">
-  <div class="menu">
-    <img class="menuIcon" src="../../assets/menu.png" />
-    <div class="menuHeader">
-      <button (click)="selectedRoomFunc(false)" class="btn btn-primary">
-        online
-      </button>
-      <button (click)="selectedRoomFunc(true)" class="btn btn-danger">
-        rooms
-      </button>
-    </div>
-    <div class="menuBody" id="style-13">
-      <div *ngIf="selectedRoom">
-        <div
-          (click)="getRoomMsgs(room.name)"
-          class="roomItem"
-          *ngFor="let room of roomList"
-        >
-          {{ room.name }}
+<app-loading *ngIf="!roomList"></app-loading>
+<div *ngIf="roomList">
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="mySmallModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">add room</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-      <div *ngIf="!selectedRoom">
-        <div class="userItem" *ngFor="let user of onlineUsers">
-          <img *ngIf="user.picture" class="avatar" [src]="user.picture" />
-          <img
-            *ngIf="!user.picture"
-            class="avatar"
-            src="../../assets/uniSex.jpg"
+        <div class="modal-body">
+          <input
+            [(ngModel)]="addRoomName"
+            [ngModelOptions]="{ standalone: true }"
+            class="form-control"
+            type="text"
+            placeholder="enter room name"
           />
-          {{ user.username }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            close
+          </button>
+          <button
+            (click)="addRoomNameFunc()"
+            data-dismiss="modal"
+            type="button"
+            class="btn btn-primary"
+          >
+            add
+          </button>
         </div>
       </div>
     </div>
-    <div *ngIf="selectedRoom" class="menuFooter">
-      <button
-        class="btn btn-success"
-        data-toggle="modal"
-        data-target=".bd-example-modal-sm"
-      >
-        add room
-      </button>
-    </div>
   </div>
-  <div class="chatContent">
-    <h4 class="chatHeader">room: {{ roomName }}</h4>
-    <div
-      class="chatBody"
-      id="style-13"
-      #scrollMe
-      [scrollTop]="scrollMe.scrollHeight"
-    >
-      <div
-        *ngFor="let item of roomMessages"
-        class="messageBox"
-        [ngStyle]="{ 'background-color': getColor(item) }"
-      >
-        <span class="usernameInfo">@{{ item.username }}:</span>
-        <span class="msgInfo"> {{ item.message }}</span>
-        <div class="dateInfo">{{ item.when | date: "short" }}</div>
-      </div>
-    </div>
-    <form class="input-group mb-3 chatFooter" (submit)="sendMsg()">
-      <input
-        placeholder="enter message"
-        type="text"
-        [(ngModel)]="message"
-        [ngModelOptions]="{ standalone: true }"
-        class="form-control messageInp"
-        aria-label="Large"
-        aria-describedby="inputGroup-sizing-sm"
-      />
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="submit">
-          send
+  <section class="mainContainer">
+    <div class="menu">
+      <img class="menuIcon" src="../../assets/menu.png" />
+      <div class="menuHeader">
+        <button (click)="selectedRoomFunc(false)" class="btn btn-primary">
+          online
+        </button>
+        <button (click)="selectedRoomFunc(true)" class="btn btn-danger">
+          rooms
         </button>
       </div>
-    </form>
-  </div>
-</section>
+      <div class="menuBody" id="style-13">
+        <div *ngIf="selectedRoom">
+          <div
+            (click)="getRoomMsgs(room.name)"
+            class="roomItem"
+            *ngFor="let room of roomList"
+          >
+            {{ room.name }}
+          </div>
+        </div>
+        <div *ngIf="!selectedRoom">
+          <div class="userItem" *ngFor="let user of onlineUsers">
+            <img *ngIf="user.picture" class="avatar" [src]="user.picture" />
+            <img
+              *ngIf="!user.picture"
+              class="avatar"
+              src="../../assets/uniSex.jpg"
+            />
+            {{ user.username }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedRoom" class="menuFooter">
+        <button
+          class="btn btn-success"
+          data-toggle="modal"
+          data-target=".bd-example-modal-sm"
+        >
+          add room
+        </button>
+      </div>
+    </div>
+    <div class="chatContent">
+      <h4 class="chatHeader">room: {{ roomName }}</h4>
+      <div
+        class="chatBody"
+        id="style-13"
+        #scrollMe
+        [scrollTop]="scrollMe.scrollHeight"
+      >
+        <div
+          *ngFor="let item of roomMessages"
+          class="messageBox"
+          [ngStyle]="{ 'background-color': getColor(item) }"
+        >
+          <span class="usernameInfo">@{{ item.username }}:</span>
+          <span class="msgInfo"> {{ item.message }}</span>
+          <div class="dateInfo">{{ item.when | date: "short" }}</div>
+        </div>
+      </div>
+      <form class="input-group mb-3 chatFooter" (submit)="sendMsg()">
+        <input
+          placeholder="enter message"
+          type="text"
+          [(ngModel)]="message"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control messageInp"
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+            send
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

@@ -1,4 +1,5 @@
-<section class="formSection">
+<app-loading *ngIf="!user"></app-loading>
+<section *ngIf="user" class="formSection">
   <div class="buttons">
     SIGN
     <a [ngClass]="isSignIn ? 'selected' : ''" (click)="isSignInFunc(true)"

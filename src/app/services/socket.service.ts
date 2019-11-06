@@ -29,6 +29,7 @@ export class SocketService {
       this.loading = false;
       if (data.logged_in === false) {
         this.router.navigateByUrl("sign");
+        this.user = data;
       } else if (data.username) {
         this.router.navigateByUrl("chat");
         this.user = data;
