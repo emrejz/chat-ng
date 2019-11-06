@@ -10,6 +10,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   message: string = "";
   roomName: string = "deneme1";
   selectedRoom: boolean = true;
+  addRoomName: string = "";
   colors: Array<string> = [
     "azure",
     "yellow",
@@ -46,8 +47,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   selectedRoomFunc(val: boolean) {
     this.selectedRoom = val;
   }
-  addRoom() {
-    this.socketService.addRoom();
+  addRoomNameFunc() {
+    this.addRoomName = this.addRoomName.trim();
+    if (this.addRoomName.length > 0) {
+      this.socketService.addRoom(this.addRoomName);
+    }
   }
   get roomList() {
     return this.socketService.roomList;

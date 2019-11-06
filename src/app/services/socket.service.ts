@@ -67,12 +67,7 @@ export class SocketService {
       selectedRoom: this.selectedRoom.name
     });
   }
-  addRoom() {
-    this.socket.emit(
-      "addRoom",
-      Math.random()
-        .toString(36)
-        .substring(10)
-    );
+  addRoom(roomName: string) {
+    this.socket.emit("addRoom", roomName);
   }
 }
