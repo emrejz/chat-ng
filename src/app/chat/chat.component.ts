@@ -9,7 +9,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 export class ChatComponent implements OnInit, OnDestroy {
   message: string = "";
   roomName: string = "deneme1";
-  event: any;
+  selectedRoom: boolean = true;
   colors: Array<string> = [
     "azure",
     "yellow",
@@ -43,19 +43,23 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     return this.colors[this.userList.indexOf(username)];
   }
-
+  selectedRoomFunc(val: boolean) {
+    this.selectedRoom = val;
+  }
   addRoom() {
     this.socketService.addRoom();
   }
-
+  get roomList() {
+    return this.socketService.roomList;
+  }
+  get onlineUsers() {
+    return this.socketService.onlineUserList;
+  }
   get roomMessages() {
     return this.socketService.messageList[this.roomName];
   }
   getRoomMsgs(name: string) {
     this.roomName = name;
     this.socketService.getRoomMessages(name);
-  }
-  get roomList() {
-    return this.socketService.roomList;
   }
 }

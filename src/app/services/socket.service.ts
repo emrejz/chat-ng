@@ -11,7 +11,6 @@ import { Observable } from "rxjs";
 })
 export class SocketService {
   constructor(private router: Router, private http: HttpClient) {}
-  onlineUser: Array<{ username: string; picture: string }> = [];
   socket: any;
   user: IUser;
   roomList: IRoom[];
@@ -30,10 +29,10 @@ export class SocketService {
       this.loading = false;
       if (data.logged_in === false) {
         this.router.navigateByUrl("sign");
-      } else {
+      } else if (data.username) {
         this.router.navigateByUrl("chat");
         this.user = data;
-      }
+      } else this.router.navigateByUrl("sign");
     });
     this.socket.on("roomList", data => {
       this.roomList = data;

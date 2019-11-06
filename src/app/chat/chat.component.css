@@ -42,6 +42,7 @@
 }
 .chatBody {
   height: 82%;
+  width: 96%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -57,6 +58,7 @@
 .chatHeader {
   height: 40px;
   color: white;
+  padding-top: 10px;
 }
 .scrollbar {
   margin-left: 30px;
@@ -92,4 +94,80 @@
     transparent,
     transparent
   );
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  margin-right: 30px;
+  margin-top: 10px;
+  overflow: hidden;
+  background-color: black;
+  transition: 1s ease;
+}
+.menuIcon {
+  color: white;
+}
+.menu:hover {
+  height: 100%;
+  margin-right: 0px;
+  margin-top: 0px;
+  background-color: black;
+  border-left: 6px solid darkorange;
+  border-top: 4px solid darkorange;
+  border-radius: 10px;
+  z-index: 1;
+  transition: 1s ease;
+  width: 240px;
+}
+.menu:hover .menuIcon {
+  display: none !important;
+}
+.menuHeader {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 11%;
+}
+.menuBody {
+  height: 78%;
+}
+.menuFooter {
+  display: flex;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 11%;
+  justify-content: center;
+}
+.menuBody {
+  overflow: auto;
+  color: white;
+}
+.roomItem {
+  background-color: rgba(255, 255, 255, 0.1);
+
+  font-size: 18px;
+  height: 42px;
+  padding-top: 6px;
+  padding-left: 20px;
+}
+.roomItem:nth-child(odd) {
+  background-color: black;
+}
+.avatar {
+  width: 50px;
+  border-radius: 25px;
+}
+.userItem {
+  padding-left: 20px;
+  margin-top: 8px;
+
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.userItem:nth-child(odd) {
+  background-color: black;
 }
