@@ -16,7 +16,7 @@ export class SocketService {
   roomList: IRoom[];
   onlineUserList: IUser[];
   messageList: object = {};
-  selectedRoom: IRoom = { name: "deneme1", when: null };
+  selectedRoom: IRoom = { name: "asda", when: null };
   loading: boolean = true;
   destroy() {
     this.socket.disconnect();
