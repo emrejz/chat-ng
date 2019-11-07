@@ -16,7 +16,7 @@ export class SocketService {
   roomList: IRoom[];
   onlineUserList: IUser[];
   messageList: object = {};
-  selectedRoom: IRoom = { name: "asda", when: null };
+  selectedRoom: IRoom = { name: "qwe", when: null };
   loading: boolean = true;
   destroy() {
     this.socket.disconnect();
@@ -56,7 +56,7 @@ export class SocketService {
       } = data;
       this.messageList[roomName].push({ username, message, when, picture });
     });
-    this.socket.emit("roomMessages", "deneme1");
+    this.socket.emit("roomMessages", "qwe");
   }
   getRoomMessages(roomName: string) {
     this.selectedRoom.name = roomName;
