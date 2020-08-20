@@ -2,7 +2,7 @@ import { environment } from "./../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { IUser } from "../models/user";
+import { IUser, IUserSignin, IUserSignup, IUserResponse } from "../models/user";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -19,17 +19,21 @@ export class SignService {
   user: IUser;
   error: Error;
   loading: boolean = false;
-  signInAction(user: IUser) {
+  signInAction(user: IUserSignin) {
     this.user = null;
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>(environment.server_url + "signin", user, httpOptions)
+      .post<IUserResponse>(environment.server_url + "signin", user, httpOptions)
       .subscribe(
         (data) => {
-          if (data["user"]) {
-            this.user = data["user"];
-            this.router.navigateByUrl("chat");
+          const { body } = data;
+          if (body.user) {
+            this.user = body.user;
+            this.router.navigateByUrl("/chat");
+          }
+          if (body.error) {
+            this.error = body.error;
           }
           if (data["error"]) {
             this.error = data["error"];
@@ -41,17 +45,21 @@ export class SignService {
         }
       );
   }
-  signUpAction(user: IUser) {
+  signUpAction(user: IUserSignup) {
     this.user = null;
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>(environment.server_url + "signup", user, httpOptions)
+      .post<IUserResponse>(environment.server_url + "signup", user, httpOptions)
       .subscribe(
         (data) => {
-          if (data["user"]) {
-            this.user = data["user"];
-            this.router.navigateByUrl("chat");
+          const { body } = data;
+          if (body.user) {
+            this.user = body.user;
+            this.router.navigateByUrl("/chat");
+          }
+          if (body.error) {
+            this.error = body.error;
           }
           if (data["error"]) {
             this.error = data["error"];
