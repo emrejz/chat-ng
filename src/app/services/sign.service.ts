@@ -1,11 +1,17 @@
 import { environment } from "./../../environments/environment";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { IUser } from "../models/user";
 
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+  withCredentials: true,
+  observe: "response" as "response",
+};
+
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class SignService {
   environment;
@@ -18,11 +24,9 @@ export class SignService {
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>(environment.server_url + "signin", user, {
-        withCredentials: true
-      })
+      .post<IUser>(environment.server_url + "signin", user, httpOptions)
       .subscribe(
-        data => {
+        (data) => {
           if (data["user"]) {
             this.user = data["user"];
             this.router.navigateByUrl("chat");
@@ -31,7 +35,7 @@ export class SignService {
             this.error = data["error"];
           }
         },
-        err => (this.error = err),
+        (err) => (this.error = err),
         () => {
           this.loading = false;
         }
@@ -42,11 +46,9 @@ export class SignService {
     this.error = null;
     this.loading = true;
     this.http
-      .post<IUser>(environment.server_url + "signup", user, {
-        withCredentials: true
-      })
+      .post<IUser>(environment.server_url + "signup", user, httpOptions)
       .subscribe(
-        data => {
+        (data) => {
           if (data["user"]) {
             this.user = data["user"];
             this.router.navigateByUrl("chat");
@@ -55,7 +57,7 @@ export class SignService {
             this.error = data["error"];
           }
         },
-        err => (this.error = err),
+        (err) => (this.error = err),
         () => {
           this.loading = false;
         }
